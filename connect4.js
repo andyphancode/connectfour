@@ -100,6 +100,9 @@ function endGame(msg) {
 /** handleClick: handle click of column top to play piece */
 
 function handleClick(evt) {
+  // indicate currrent player
+  currPlayer === 1 ? document.querySelector("#game").style.borderColor = "rgb(82, 82, 236)" : document.querySelector("#game").style.borderColor = "rgb(245, 48, 48)";
+
   // get x from ID of clicked cell
   const x = +evt.target.id;
 
@@ -171,5 +174,19 @@ function checkForWin() {
   }
 }
 
+// Reset button functionality
+
+const reset = document.querySelector("button");
+
+reset.addEventListener('click', function(){
+  document.querySelector("#board").innerHTML = '';
+  currPlayer = 1;
+  board = [];
+  makeBoard();
+  makeHtmlBoard();
+});
+
 makeBoard();
 makeHtmlBoard();
+
+

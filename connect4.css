@@ -1,17 +1,26 @@
-body{
+body {
   height: 100vh;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: darkgray;
 }
 
-#game{
-  border: solid 1px black;
-  background-color: slategray;
+button {
+  margin-top: 50px;
+  width: 7.5%;
+  height: 5%;
 }
 
-#board{
+#game {
+  border: solid 5px black;
+  background-color: slategray;
+  border-radius: 20px;
+}
+
+#board {
   margin: 5px;
 }
 
@@ -28,23 +37,30 @@ body{
 /* pieces are div within game table cells: draw as colored circles */
 
 .piece {
-  /* TODO: make into circles */
   margin: 5px;
   width: 80%;
   height: 80%;
   border-radius: 50%;
+
+  /* Saved CSS code for transition attempt */
   /* position: absolute;
   left: 0%;
   top: 0%; */
-  transition: top .5s;
+  /* transition: top .5s;
   -moz-transition: top .5s;
   -webkit-transition: top .5s;
   -o-transition: top .5s;
-  display: block;
+  display: block; */
+
+  animation-duration: .5s;
+  animation-name: drop
+
 }
 
-
-/* TODO: make pieces red/blue,  depending on player 1/2 piece */
+@keyframes drop {
+  0% {transform:translateY(-500px);}
+  100% {transform:translateY(0)}
+}
 
 .player1 {
   background-color: rgb(245, 48, 48);
