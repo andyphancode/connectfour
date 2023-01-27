@@ -5,6 +5,8 @@
  * board fills (tie)
  */
 
+// -x- notes self comments
+
 const WIDTH = 7;
 const HEIGHT = 6;
 
@@ -16,13 +18,13 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  // Set "board" to empty HEIGHT x WIDTH matrix array
   for (let i = 0; i < HEIGHT; i++) {
     for (let j = 0; j < WIDTH; j++) {
       if (board[i] === undefined){
-        board[i] = [null];
+        board[i] = [null]; // Create an array for width if not already present -x-
       } else {
-            board[i][j] = null;
+            board[i][j] = null; // If array for width already present, set coordinate to null -x-
       }
     }
   }
@@ -31,9 +33,10 @@ function makeBoard() {
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+
+  // Get "htmlBoard" variable from the item in HTML w/ID of "board" -x-
   const htmlBoard = document.querySelector("#board");
-  // TODO: add comment for this code
+
   // Create top row to slot in pieces, give it a id of column-top and code it so function called handleClick is called each time it is clicked
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
@@ -45,12 +48,11 @@ function makeHtmlBoard() {
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
+
   // Append top element to the htmlBoard
   htmlBoard.append(top);
 
-  // TODO: add comment for this code
-  // Create the rest of the board and append the rows to htmlBoard
-  // Each cell has an id of y-x
+  // Create the rest of the board and append the rows to htmlBoard, each cell has id of y-x -x-
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
@@ -65,12 +67,13 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  
+
   for(let i = HEIGHT-1; i > -1; i--){
+    // Returns null if coordinate is out of legal bounds -x-
     if (board[0][x] !== null){
       return null;
     }
+    // Returns y coordinate if within legal bounds and empty, prioritizing lowest free cell -x-
     if (board[i][x] === null) {
       return i;
     }
@@ -80,7 +83,7 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // make a div and insert into correct table cell
   const div = document.createElement("div");
   div.classList.add("piece");
 
@@ -110,10 +113,11 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
+  // add line to update in-memory board
   placeInTable(y, x);
   board[y][x] = currPlayer;
-  // Holding code, not sure why transition for top property did not function
+
+  // Holding code, not sure why transition for top property did not function -x-
   // document.getElementById(`${y}-${x}`).firstElementChild.style.top = "0px";
 
  
@@ -123,7 +127,7 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  // check if all cells in board are filled; if so call, call endGame for a Tie -x-
   
   const tieGameCheck = board.every(currentValue => currentValue.every(value => value !== null))
 
@@ -133,7 +137,6 @@ function handleClick(evt) {
 
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
   currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
 }
 
@@ -155,19 +158,18 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
 
 
-  // Loops through every y,x combination
+  // Loops through every y,x combination -x-
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
-      // Creates an array that spans in several directions 
+      // Creates an array that spans in several directions -x-
       const horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
       const vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
       const diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
       const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
-      // Passes each array into the _win function, which checks if the coordinates are within the board (legal) and if they match currPlayer by destructuring
-      // Returns true if the _win function returns true, which causes the checkForWin function to return true and call endGame
+      // Passes each array into the _win function, which checks if the coordinates are within the board (legal) and if they match currPlayer by destructuring -x-
+      // Returns true if the _win function returns true, which causes the checkForWin function to return true and call endGame -x-
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
