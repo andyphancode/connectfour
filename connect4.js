@@ -83,13 +83,10 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // make a div and insert into correct table cell
+  // make a div, add a class and insert into correct table cell
   const div = document.createElement("div");
   div.classList.add("piece");
-
-
   currPlayer === 1 ? div.classList.add("player1") : div.classList.add("player2")
-
   const td = document.getElementById(`${y}-${x}`);
   td.append(div);
 }
@@ -119,7 +116,6 @@ function handleClick(evt) {
 
   // Holding code, not sure why transition for top property did not function -x-
   // document.getElementById(`${y}-${x}`).firstElementChild.style.top = "0px";
-
  
   // check for win
   if (checkForWin()) {
@@ -134,7 +130,6 @@ function handleClick(evt) {
   if (tieGameCheck) {
     endGame("Tie!");
   }
-
 
   // switch players
   currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
@@ -157,7 +152,6 @@ function checkForWin() {
         board[y][x] === currPlayer
     );
   }
-
 
 
   // Loops through every y,x combination -x-
